@@ -1,4 +1,7 @@
-const WS_BASE = `ws://${window.location.hostname}:8080/ws`;
+// URL WebSocket : configurable au build (VITE_WS_URL). Un chemin relatif (/ws) est converti en ws(s)://hôte
+const wsProto = window.location.protocol === "https:" ? "wss" : "ws";
+const rawWs = import.meta.env.VITE_WS_URL || `${wsProto}://${window.location.hostname}:8080/ws`;
+const WS_BASE = rawWs.startsWith("/") ? `${wsProto}://${window.location.host}${rawWs}` : rawWs;
 
 // connexion WebSocket pour le jeu
 export const connectGame = (gameId, playerId, onMessage) => {

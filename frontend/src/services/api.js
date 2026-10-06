@@ -1,4 +1,5 @@
-const BASE = `http://${window.location.hostname}:8080/api`;
+// URL de l'API : configurable au build (VITE_API_URL), sinon repli sur le port 8080 (dev local)
+const BASE = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
 
 // AUTH
 export const register = (username, password) =>
