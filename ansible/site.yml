@@ -1,0 +1,20 @@
+---
+- name: Préparer les machines
+  hosts: all
+  become: true
+  roles:
+    - common
+    - containerd
+    - kubernetes
+
+- name: Créer le cluster
+  hosts: control_plane
+  become: true
+  roles:
+    - control_plane
+
+- name: Joindre le worker
+  hosts: workers
+  become: true
+  roles:
+    - worker

@@ -1,0 +1,35 @@
+---
+- name: kubeadm init
+  ansible.builtin.command: >
+    kubeadm init --pod-network-cidr=10.244.0.0/16
+    --apiserver-cert-extra-sans={{ ansible_host }}
+  args:
+    creates: /etc/kubernetes/admin.conf
+
+- name: Dossier .kube
+  ansible.builtin.file:
+    path: /home/ubuntu/.kube
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+
+- name: kubeconfig pour ubuntu
+  ansible.builtin.copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ubuntu/.kube/config
+    remote_src: true
+    owner: ubuntu
+    group: ubuntu
+    mode: "0600"
+
+- name: Installer Flannel
+  ansible.builtin.command: kubectl apply -f https://github.com/flannel-io/flannel/releases/download/v0.28.9/kube-flannel.yml
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+  register: flannel
+  changed_when: "'created' in flannel.stdout"
+
+- name: Commande de join
+  ansible.builtin.command: kubeadm token create --print-join-command
+  register: join
+  changed_when: false

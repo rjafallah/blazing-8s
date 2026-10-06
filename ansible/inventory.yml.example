@@ -1,0 +1,10 @@
+all:
+  children:
+    control_plane:
+      hosts:
+        control-plane:
+          ansible_host: 1.2.3.4
+    workers:
+      hosts:
+        worker:
+          ansible_host: 5.6.7.8

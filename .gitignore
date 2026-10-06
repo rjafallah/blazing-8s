@@ -10,3 +10,4 @@ target/
 *.tfstate
 *.tfstate.*
 *.tfvars
+ansible/inventory.yml

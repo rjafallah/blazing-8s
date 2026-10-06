@@ -1,0 +1,5 @@
+---
+- name: kubeadm join
+  ansible.builtin.command: "{{ hostvars['control-plane'].join.stdout }}"
+  args:
+    creates: /etc/kubernetes/kubelet.conf
