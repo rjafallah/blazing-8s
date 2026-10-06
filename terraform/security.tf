@@ -1,4 +1,3 @@
-# VPC par défaut : il contient déjà un subnet public, une Internet Gateway et la route vers Internet
 data "aws_vpc" "default" {
   default = true
 }
@@ -30,7 +29,7 @@ resource "aws_vpc_security_group_ingress_rule" "k8s_api" {
 
 resource "aws_vpc_security_group_ingress_rule" "k8s_nodeport" {
   security_group_id = aws_security_group.k8s.id
-  description       = "NodePort de l'application"
+  description       = "NodePort de l application"
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "tcp"
   from_port         = 30000

@@ -1,4 +1,3 @@
-# Dernière AMI Ubuntu 22.04 (éditeur Canonical)
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]
