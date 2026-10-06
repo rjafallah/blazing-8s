@@ -7,10 +7,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 17
@@ -19,10 +19,10 @@ jobs:
 
   test:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 17
@@ -31,9 +31,9 @@ jobs:
 
   docker-images:
     needs: test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build des deux images
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/blazing-backend:latest ./backend
@@ -41,20 +41,20 @@ jobs:
       # Les jobs tournent sur des machines différentes : on passe les images au job suivant
       - name: Sauvegarde des images
         run: docker save -o images.tar ${{ secrets.DOCKERHUB_USERNAME }}/blazing-backend:latest ${{ secrets.DOCKERHUB_USERNAME }}/blazing-frontend:latest
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: images
           path: images.tar
 
   push-dockerhub:
     needs: docker-images
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: images
       - run: docker load -i images.tar
-      - uses: docker/login-action@v3
+      - uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
