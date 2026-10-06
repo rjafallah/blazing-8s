@@ -1,0 +1,2 @@
+# Copie ce fichier en terraform.tfvars (ignoré par Git) et remplace la valeur
+my_ip = "1.2.3.4/32"
