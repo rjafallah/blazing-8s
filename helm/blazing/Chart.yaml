@@ -1,0 +1,5 @@
+apiVersion: v2
+name: blazing
+description: Blazing 8s, jeu de cartes multijoueur (frontend, backend, MySQL)
+version: 0.1.0
+appVersion: "1.0"

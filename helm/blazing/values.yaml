@@ -1,0 +1,13 @@
+mysql:
+  image: mysql:8
+  database: jeux
+  password: change-me
+
+backend:
+  image: amine7102004/blazing-backend
+  tag: latest
+
+frontend:
+  image: amine7102004/blazing-frontend
+  tag: latest
+  nodePort: 30080
