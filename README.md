@@ -2,8 +2,6 @@
 
 Jeu de cartes multijoueur en temps réel, inspiré du Uno (React, Spring Boot, MySQL, WebSocket). Ce dépôt contient l'application et toute sa chaîne d'industrialisation : conteneurisation, intégration continue, infrastructure AWS décrite en code avec Terraform, cluster Kubernetes installé avec Ansible et déploiement avec Helm.
 
-![CI](https://github.com/rjafallah/blazing-8s/actions/workflows/ci.yml/badge.svg)
-
 ## Sommaire
 
 - [Le jeu](#le-jeu)
